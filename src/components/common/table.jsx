@@ -14,8 +14,7 @@ const Table = props => {
 
 export default Table;
 
-{
-  /* <tbody>
+/* <tbody>
       {movies.map(movie => (
         <tr key={movie._id}>
           <td>{movie.title}</td>
@@ -36,4 +35,3 @@ export default Table;
         </tr>
       ))}
     </tbody> */
-}
