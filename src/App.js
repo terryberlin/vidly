@@ -1,15 +1,34 @@
-import React from "react";
+import React, { Component } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Movies from "./components/movies";
-//import logo from "./logo.svg";
-//import logo from "http://quikserve.reports.assets.s3-website-us-east-1.amazonaws.com/images/qs_logo_orange.png";
+import MovieForm from "./components/movieForm";
+import Customers from "./components/customers";
+import Rentals from "./components/rentals";
+import NotFound from "./components/notFound";
+import NavBar from "./components/navBar";
 import "./App.css";
 
-function App() {
-  return (
-    <main className="container">
-      <Movies />
-    </main>
-  );
+class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <NavBar />
+        <main className="container">
+          <Switch>
+            <Route path="/movies/:id" component={MovieForm} />
+            <Route path="/movies" component={Movies} />
+            <Route path="/customers" component={Customers} />
+            <Route path="/rentals" component={Rentals} />
+            <Route path="/not-found" component={NotFound} />
+            <Route path="/" component={Movies} />
+            <Redirect to="/not-found" />
+          </Switch>
+        </main>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
+
+//<Redirect from="/" exact to="/movies" />
