@@ -20,3 +20,11 @@ code {
 .clickable {
   cursor: pointer;
 }
+
+.ul {
+  list-style-type: none;
+}
+
+.list-group {
+  list-style-type: none;
+}
