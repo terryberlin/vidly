@@ -7,6 +7,7 @@ import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
 //import Counter from "./components/movies";
+//console.log("SUPERMAN", process.evn.REACT_APP_NAME);
 
 ReactDOM.render(
   <BrowserRouter>
