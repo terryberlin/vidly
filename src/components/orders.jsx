@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import MoviesTable from "./moviesTable";
+import OrdersTable from "./ordersTable";
 import ListGroup from "./common/listGroup";
 import Pagination from "./common/pagination";
-import { getMovies, deleteMovie } from "../services/movieService";
+import { getOrders, deleteOrder } from "../services/orderService";
 //import { getMovies, deleteMovie } from "../services/fakeMovieService";
 import { getGenres } from "../services/genreService";
 //import { getGenres } from "../services/fakeGenreService";
@@ -12,15 +12,15 @@ import { paginate } from "../utils/paginate";
 import _ from "lodash";
 import SearchBox from "./searchBox";
 
-class Movies extends Component {
+class Orders extends Component {
   state = {
-    movies: [],
+    orders: [],
     genres: [],
     currentPage: 1,
     pageSize: 4,
     searchQuery: "",
     selectedGenre: null,
-    sortColumn: { path: "title", order: "asc" }
+    sortColumn: { path: "purchItem", order: "asc" }
   };
 
   async componentDidMount() {
@@ -28,31 +28,31 @@ class Movies extends Component {
     //const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
     const genres = [{ _id: "", name: "All Genres" }, ...data];
 
-    const { data: movies } = await getMovies();
-    this.setState({ movies, genres });
+    const { data: orders } = await getOrders();
+    this.setState({ orders, genres });
   }
 
-  handleDelete = async movie => {
-    const originalMovies = this.state.movies;
+  handleDelete = async order => {
+    const originalOrders = this.state.orders;
 
-    const movies = originalMovies.filter(m => m._id !== movie._id);
-    this.setState({ movies });
+    const orders = originalOrders.filter(m => m._id !== order._id);
+    this.setState({ orders });
     try {
-      await deleteMovie(movie._id);
+      await deleteOrder(order._id);
     } catch (ex) {
       if (ex.response && ex.response.status === 404)
-        toast.error("This movie has already been deleted.");
+        toast.error("This order has already been deleted.");
 
-      this.setState({ movies: originalMovies });
+      this.setState({ orders: originalOrders });
     }
   };
 
-  handleLike = movie => {
-    const movies = [...this.state.movies];
-    const index = movies.indexOf(movie);
-    movies[index] = { ...movies[index] };
-    movies[index].liked = !movies[index].liked;
-    this.setState({ movies });
+  handleLike = order => {
+    const orders = [...this.state.orders];
+    const index = orders.indexOf(order);
+    orders[index] = { ...orders[index] };
+    //orders[index].liked = !orders[index].liked;
+    this.setState({ orders });
   };
 
   handlePageChange = page => {
@@ -78,32 +78,32 @@ class Movies extends Component {
       sortColumn,
       selectedGenre,
       searchQuery,
-      movies: allMovies
+      orders: allOrders
     } = this.state;
 
-    let filtered = allMovies;
+    let filtered = allOrders;
     if (searchQuery)
-      filtered = allMovies.filter(m =>
+      filtered = allOrders.filter(m =>
         m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
     else if (selectedGenre && selectedGenre._id)
-      filtered = allMovies.filter(m => m.genre._id === selectedGenre._id);
+      filtered = allOrders.filter(m => m.genre._id === selectedGenre._id);
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
-    const movies = paginate(sorted, currentPage, pageSize);
+    const orders = paginate(sorted, currentPage, pageSize);
 
-    return { totalCount: filtered.length, data: movies };
+    return { totalCount: filtered.length, data: orders };
   };
 
   render() {
-    const { length: count } = this.state.movies;
+    const { length: count } = this.state.orders;
     const { pageSize, currentPage, sortColumn, searchQuery } = this.state;
     const { user } = this.props;
 
-    if (count === 0) return <p>There are no movies in the database.</p>;
+    if (count === 0) return <p>There are no orders in the database.</p>;
 
-    const { totalCount, data: movies } = this.getPagedData();
+    const { totalCount, data: orders } = this.getPagedData();
 
     return (
       <div className="row">
@@ -117,18 +117,18 @@ class Movies extends Component {
         <div className="col">
           {user && (
             <Link
-              to="/movies/new"
+              to="/orders/new"
               className="btn btn-primary"
               style={{ marginBottom: 20 }}
             >
-              New Movie
+              New Order
             </Link>
           )}
 
-          <p>Showing {totalCount} movies in the database.</p>
+          <p>Showing {totalCount} orders in the database.</p>
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
-          <MoviesTable
-            movies={movies}
+          <OrdersTable
+            orders={orders}
             sortColumn={sortColumn}
             onLike={this.handleLike}
             onDelete={this.handleDelete}
@@ -146,4 +146,4 @@ class Movies extends Component {
   }
 }
 
-export default Movies;
+export default Orders;

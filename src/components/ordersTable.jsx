@@ -2,31 +2,27 @@ import React, { Component } from "react";
 import auth from "../services/authService";
 import { Link } from "react-router-dom";
 import Table from "./common/table";
-import Like from "./common/like";
+//import Like from "./common/like";
 
-class MoviesTable extends Component {
+class OrdersTable extends Component {
   columns = [
     {
-      path: "title",
-      label: "Title",
-      content: movie => <Link to={`/movies/${movie._id}`}>{movie.title}</Link>
-    },
-    { path: "genre.name", label: "Genre" },
-    { path: "numberInStock", label: "Stock" },
-    { path: "dailyRentalRate", label: "Rate" },
-    {
-      key: "like",
-      content: movie => (
-        <Like liked={movie.liked} onClick={() => this.props.onLike(movie)} />
+      path: "purchaseItem",
+      label: "PurchaseItem",
+      content: order => (
+        <Link to={`/orders/${order._id}`}>{order.purchaseItem}</Link>
       )
-    }
+    },
+    { path: "purchaseItemDescription", label: "PurchaseDescription" },
+    { path: "build", label: "Build" },
+    { path: "estimatedOnHand", label: "Estimated On Hand" }
   ];
 
   deleteColumn = {
     key: "delete",
-    content: movie => (
+    content: order => (
       <button
-        onClick={() => this.props.onDelete(movie)}
+        onClick={() => this.props.onDelete(order)}
         className="btn btn-danger btn-sm"
       >
         Delete
@@ -41,12 +37,12 @@ class MoviesTable extends Component {
   }
 
   render() {
-    const { movies, onSort, sortColumn } = this.props;
+    const { orders, onSort, sortColumn } = this.props;
 
     return (
       <Table
         columns={this.columns}
-        data={movies}
+        data={orders}
         sortColumn={sortColumn}
         onSort={onSort}
       />
@@ -54,4 +50,4 @@ class MoviesTable extends Component {
   }
 }
 
-export default MoviesTable;
+export default OrdersTable;

@@ -6,7 +6,9 @@ import LoginForm from "./components/loginForm";
 import Logout from "./components/logout";
 import RegisterForm from "./components/registerForm";
 import Movies from "./components/movies";
+import Orders from "./components/orders";
 import MovieForm from "./components/movieForm";
+import OrderForm from "./components/orderForm";
 import Customers from "./components/customers";
 import Rentals from "./components/rentals";
 import NotFound from "./components/notFound";
@@ -42,6 +44,9 @@ class App extends Component {
               path="/movies"
               render={props => <Movies {...props} user={this.state.user} />}
             />
+
+            <Route path="/orders" component={Orders} />
+            <Route path="/orders/:id" component={OrderForm} />
 
             <Route path="/customers" component={Customers} />
             <Route path="/rentals" component={Rentals} />
