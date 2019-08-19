@@ -34,7 +34,7 @@ class OrderForm extends Form {
     estimatedOnHand: Joi.number()
       .required()
       .min(0)
-      .max(10)
+      .max(500)
       .label("EstimatedOnHand")
   };
 
@@ -84,7 +84,7 @@ class OrderForm extends Form {
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("purchaseItem", "PurchaseItem")}
           {this.renderInput("purchaseItemDescription", "Purchase")}
-          {this.renderInput("build", "Build", "number")}
+          {this.renderInput("build", "Build")}
           {this.renderInput("estimatedOnHand", "EstimatedOnHand")}
           {this.renderButton("Save")}
         </form>

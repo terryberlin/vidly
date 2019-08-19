@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import OrdersTable from "./ordersTable";
-import ListGroup from "./common/listGroup";
+//import ListGroup from "./common/listGroup";
 import Pagination from "./common/pagination";
 import { getOrders, deleteOrder } from "../services/orderService";
 //import { getMovies, deleteMovie } from "../services/fakeMovieService";
-import { getGenres } from "../services/genreService";
+//import { getGenres } from "../services/genreService";
 //import { getGenres } from "../services/fakeGenreService";
 import { paginate } from "../utils/paginate";
 import _ from "lodash";
@@ -15,7 +15,7 @@ import SearchBox from "./searchBox";
 class Orders extends Component {
   state = {
     orders: [],
-    genres: [],
+    //genres: [],
     currentPage: 1,
     pageSize: 4,
     searchQuery: "",
@@ -24,12 +24,11 @@ class Orders extends Component {
   };
 
   async componentDidMount() {
-    const { data } = await getGenres();
-    //const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
-    const genres = [{ _id: "", name: "All Genres" }, ...data];
+    //const { data } = await getGenres();
+    //const genres = [{ _id: "", name: "All Genres" }, ...data];
 
     const { data: orders } = await getOrders();
-    this.setState({ orders, genres });
+    this.setState({ orders });
   }
 
   handleDelete = async order => {
@@ -59,12 +58,12 @@ class Orders extends Component {
     this.setState({ currentPage: page });
   };
 
-  handleGenreSelect = genre => {
-    this.setState({ selectedGenre: genre, searchQuery: "", currentPage: 1 });
-  };
+  // handleGenreSelect = genre => {
+  //   this.setState({ selectedGenre: genre, searchQuery: "", currentPage: 1 });
+  // };
 
   handleSearch = query => {
-    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
+    this.setState({ searchQuery: query, currentPage: 1 });
   };
 
   handleSort = sortColumn => {
@@ -76,7 +75,7 @@ class Orders extends Component {
       pageSize,
       currentPage,
       sortColumn,
-      selectedGenre,
+      //    selectedGenre,
       searchQuery,
       orders: allOrders
     } = this.state;
@@ -84,10 +83,10 @@ class Orders extends Component {
     let filtered = allOrders;
     if (searchQuery)
       filtered = allOrders.filter(m =>
-        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+        m.purchaseItem.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
-    else if (selectedGenre && selectedGenre._id)
-      filtered = allOrders.filter(m => m.genre._id === selectedGenre._id);
+    // else if (selectedGenre && selectedGenre._id)
+    //   filtered = allOrders.filter(m => m.genre._id === selectedGenre._id);
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
@@ -107,13 +106,7 @@ class Orders extends Component {
 
     return (
       <div className="row">
-        <div className="col-3">
-          <ListGroup
-            items={this.state.genres}
-            selectedItem={this.state.selectedGenre}
-            onItemSelect={this.handleGenreSelect}
-          />
-        </div>
+        <div className="col-3" />
         <div className="col">
           {user && (
             <Link
@@ -147,3 +140,9 @@ class Orders extends Component {
 }
 
 export default Orders;
+
+/* <ListGroup
+items={this.state.genres}
+selectedItem={this.state.selectedGenre}
+onItemSelect={this.handleGenreSelect}
+/> */
