@@ -9,8 +9,8 @@ import Movies from "./components/movies";
 import Orders from "./components/orders";
 import MovieForm from "./components/movieForm";
 import OrderForm from "./components/orderForm";
-import Customers from "./components/customers";
-import Rentals from "./components/rentals";
+//import Customers from "./components/customers";
+//import Rentals from "./components/rentals";
 import NotFound from "./components/notFound";
 import NavBar from "./components/navBar";
 import ProtectedRoute from "./components/common/protectedRoute";
@@ -48,10 +48,8 @@ class App extends Component {
             <Route path="/orders/:id" component={OrderForm} />
             <Route path="/orders" component={Orders} />
 
-            <Route path="/customers" component={Customers} />
-            <Route path="/rentals" component={Rentals} />
             <Route path="/not-found" component={NotFound} />
-            <Route path="/" component={Movies} />
+            <Route path="/" component={LoginForm} />
             <Redirect to="/not-found" />
           </Switch>
         </main>
@@ -63,3 +61,5 @@ class App extends Component {
 export default App;
 
 //<Redirect from="/" exact to="/movies" />
+//<Route path="/customers" component={Customers} />
+//<Route path="/rentals" component={Rentals} />

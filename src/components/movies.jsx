@@ -17,7 +17,7 @@ class Movies extends Component {
     movies: [],
     genres: [],
     currentPage: 1,
-    pageSize: 4,
+    pageSize: 15,
     searchQuery: "",
     selectedGenre: null,
     sortColumn: { path: "title", order: "asc" }
@@ -26,7 +26,7 @@ class Movies extends Component {
   async componentDidMount() {
     const { data } = await getGenres();
     //const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
-    const genres = [{ _id: "", name: "All Genres" }, ...data];
+    const genres = [{ _id: "", name: "All Groups" }, ...data];
 
     const { data: movies } = await getMovies();
     this.setState({ movies, genres });
@@ -121,11 +121,11 @@ class Movies extends Component {
               className="btn btn-primary"
               style={{ marginBottom: 20 }}
             >
-              New Movie
+              New Item
             </Link>
           )}
 
-          <p>Showing {totalCount} movies in the database.</p>
+          <p>Showing {totalCount} prep items.</p>
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <MoviesTable
             movies={movies}

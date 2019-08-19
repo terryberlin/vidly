@@ -17,7 +17,7 @@ class Orders extends Component {
     orders: [],
     //genres: [],
     currentPage: 1,
-    pageSize: 4,
+    pageSize: 15,
     searchQuery: "",
     selectedGenre: null,
     sortColumn: { path: "purchItem", order: "asc" }
@@ -118,7 +118,7 @@ class Orders extends Component {
             </Link>
           )}
 
-          <p>Showing {totalCount} orders in the database.</p>
+          <p>Showing {totalCount} order items.</p>
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <OrdersTable
             orders={orders}

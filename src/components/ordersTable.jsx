@@ -8,14 +8,14 @@ class OrdersTable extends Component {
   columns = [
     {
       path: "purchaseItem",
-      label: "PurchaseItem",
+      label: "Item",
       content: order => (
         <Link to={`/orders/${order._id}`}>{order.purchaseItem}</Link>
       )
     },
-    { path: "purchaseItemDescription", label: "PurchaseDescription" },
-    { path: "build", label: "Build" },
-    { path: "estimatedOnHand", label: "Estimated On Hand" }
+    { path: "purchaseItemDescription", label: "Description" },
+    { path: "build", label: "Order Build" },
+    { path: "estimatedOnHand", label: "Est On Hand" }
   ];
 
   deleteColumn = {

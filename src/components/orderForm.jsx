@@ -82,10 +82,10 @@ class OrderForm extends Form {
       <div>
         <h1>Order Form</h1>
         <form onSubmit={this.handleSubmit}>
-          {this.renderInput("purchaseItem", "PurchaseItem")}
-          {this.renderInput("purchaseItemDescription", "Purchase")}
+          {this.renderInput("purchaseItem", "Item")}
+          {this.renderInput("purchaseItemDescription", "Description")}
           {this.renderInput("build", "Build")}
-          {this.renderInput("estimatedOnHand", "EstimatedOnHand")}
+          {this.renderInput("estimatedOnHand", "Estimated On Hand")}
           {this.renderButton("Save")}
         </form>
       </div>
